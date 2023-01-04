@@ -72,6 +72,14 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Hit Object : " + other.name);
         }
+        else if (other.tag == "Car")
+        {
+            Debug.Log("Hit Car");
+        }
+        else if (other.tag == "Bone")
+        {
+            Debug.Log("Collected Bone");
+        }
     }
 
     #endregion
