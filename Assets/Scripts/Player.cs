@@ -12,18 +12,46 @@ public class Player : MonoBehaviour
     private Animator _anim;
     [SerializeField]
     private CharacterController _controller;
+    [SerializeField]
+    private UIManager _ui;
 
     [Header("Player Attributes", order = 2)]
     [SerializeField]
     private float _speed;
     [SerializeField]
     private float _animSpeed;
+    [SerializeField]
+    private int _lives;
 
     private float _direction;
+    private int _bonesCollected;
 
     private void Start()
     {
+        NullCheck();
         SetAnimSpeed();
+        _bonesCollected = 0;
+        _lives = 3;
+    }
+
+    private void NullCheck()
+    {
+        if (_input == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to PlayerInput");
+        }
+        if (_anim == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to Animator");
+        }
+        if (_controller == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to Controller");
+        }
+        if (_ui == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to UIManager");
+        }
     }
 
     private void Update()
@@ -70,15 +98,19 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Object")
         {
-            Debug.Log("Hit Object : " + other.name);
+            _lives -= 1;
+            _ui.HealthCheck(_lives);
         }
         else if (other.tag == "Car")
         {
-            Debug.Log("Hit Car");
+            _lives -= 1;
+            _ui.HealthCheck(_lives);
         }
         else if (other.tag == "Bone")
         {
-            Debug.Log("Collected Bone");
+            _bonesCollected += 1;
+            _ui.UpdateCollectedBones(_bonesCollected);
+            Destroy(other.gameObject);
         }
     }
 

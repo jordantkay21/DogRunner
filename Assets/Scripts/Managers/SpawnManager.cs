@@ -46,6 +46,7 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+    #region Spawners
     IEnumerator SpawnCarsLeftRoutine()
     {
 
@@ -122,5 +123,11 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(2, 4));
 
         }
+    }
+    #endregion
+
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 }
