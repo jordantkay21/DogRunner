@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private PlayerInput _input;
     [SerializeField]
     private Animator _anim;
+    [SerializeField]
+    private CharacterController _controller;
 
     [Header("Player Attributes", order = 2)]
     [SerializeField]
@@ -21,13 +23,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-
+        SetAnimSpeed();
     }
 
     private void Update()
     {
-        movement();
-        SetAnimSpeed();
+        Movement();
+        Bounds();
+
     }
 
     #region Movement
@@ -41,9 +44,34 @@ public class Player : MonoBehaviour
         _anim.SetFloat("Speed_f", _animSpeed);
     }
 
-    private void movement()
+    private void Movement()
     {
         transform.Translate(new Vector3(_direction, 0) * _speed * Time.deltaTime);
+    }
+
+    private void Bounds()
+    {
+        if (transform.position.z < -30)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -30f);
+        }
+
+        if (transform.position.z > -12)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -12);
+        }
+    }
+
+    #endregion
+
+    #region Colliders
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Object")
+        {
+            Debug.Log("Hit Object : " + other.name);
+        }
     }
 
     #endregion
