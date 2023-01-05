@@ -27,7 +27,7 @@ public class Road : MonoBehaviour
 
         if(transform.position.x > 0)
         {
-            transform.position = new Vector3(-116, 0.19f, -11);
+            transform.position = new Vector3(-119.856f, 0.19f, -11);
         }
     }
 }

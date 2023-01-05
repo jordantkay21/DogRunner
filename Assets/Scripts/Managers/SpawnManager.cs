@@ -40,12 +40,6 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnTreesRightRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     #region Spawners
     IEnumerator SpawnCarsLeftRoutine()
     {
@@ -54,7 +48,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (_stopSpawning == false)
         {
-            int random = Random.Range(0, _carsList.Count - 1);
+            int random = Random.Range(0, _carsList.Count);
 
             Vector3 posToSpawn = new Vector3(-120, 0, Random.Range(-26, -23));
             GameObject newCar = Instantiate(_carsList[random], posToSpawn, Quaternion.LookRotation(Vector3.left));
@@ -70,7 +64,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (_stopSpawning == false)
         {
-            int random = Random.Range(0, _carsList.Count - 1);
+            int random = Random.Range(0, _carsList.Count);
 
             Vector3 posToSpawn = new Vector3(-120, 0, Random.Range(-19, -16));
             GameObject newCar = Instantiate(_carsList[random], posToSpawn, Quaternion.LookRotation(Vector3.left));
@@ -98,7 +92,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (_stopSpawning == false)
         {
-            int random = Random.Range(0, _treesList.Count - 1);
+            int random = Random.Range(0, _treesList.Count);
 
             Vector3 posToSpawn = new Vector3(-120, 0, Random.Range(-62,-32));
             GameObject newCar = Instantiate(_treesList[random], posToSpawn, Quaternion.identity);
@@ -115,7 +109,7 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         while (_stopSpawning == false)
         {
-            int random = Random.Range(0, _treesList.Count - 1);
+            int random = Random.Range(0, _treesList.Count);
 
             Vector3 posToSpawn = new Vector3(-120, 0, Random.Range(-10, 20));
             GameObject newCar = Instantiate(_treesList[random], posToSpawn, Quaternion.identity);

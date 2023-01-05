@@ -14,8 +14,9 @@ public class UIManager : MonoBehaviour
     [Header("Variables")]
     private int _bonesCollected;
     private int _lives;
+    private bool _isGameOver;
 
-    [Header("UI Components")]
+    [Header("HealthElements")]
     [SerializeField]
     private GameObject _3life;
     [SerializeField]
@@ -24,6 +25,12 @@ public class UIManager : MonoBehaviour
     private GameObject _1life;
     [SerializeField]
     private GameObject _0life;
+
+    [Header("GameOverElements")]
+    [SerializeField]
+    private GameObject _gameOver;
+    [SerializeField]
+    private Button _restart;
 
 
     #endregion
@@ -59,7 +66,7 @@ public class UIManager : MonoBehaviour
 
     private void SetBoneCollectedText()
     {
-        _bonesCollectedText.SetText("Bones Collected: " + _bonesCollected);
+        _bonesCollectedText.SetText(" " + _bonesCollected + " ");
     }
 
     #endregion
@@ -105,4 +112,23 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
+    #region GameOver
+    public void GameOverSequence()
+    {
+        _isGameOver = true;
+        _restart.gameObject.SetActive(true);
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        while (_isGameOver == true)
+        {
+            _gameOver.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            _gameOver.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+    #endregion 
 }

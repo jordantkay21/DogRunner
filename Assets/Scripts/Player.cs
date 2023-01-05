@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
     private CharacterController _controller;
     [SerializeField]
     private UIManager _ui;
+    [SerializeField]
+    private SpawnManager _spawnManager;
+    [SerializeField]
+    private GameManager _gameManager;
+
 
     [Header("Player Attributes", order = 2)]
     [SerializeField]
@@ -32,6 +37,7 @@ public class Player : MonoBehaviour
         SetAnimSpeed();
         _bonesCollected = 0;
         _lives = 3;
+
     }
 
     private void NullCheck()
@@ -51,6 +57,14 @@ public class Player : MonoBehaviour
         if (_ui == null)
         {
             Debug.LogError(gameObject.name + " Failed to Connect to UIManager");
+        }
+        if (_spawnManager == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to SpawnManager");
+        }
+        if (_gameManager == null)
+        {
+            Debug.LogError(gameObject.name + " Failed to Connect to GameManager");
         }
     }
 
@@ -92,22 +106,40 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Health
+
+    private void Damage()
+    {
+        _lives -= 1;
+
+        if (_lives == 0)
+        {
+            _gameManager.GameOver();
+            Destroy(this.gameObject);
+        }
+    }
+
+    #endregion
+
     #region Colliders
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Object")
         {
-            _lives -= 1;
+            _gameManager.DogBarkSound();
+            Damage();
             _ui.HealthCheck(_lives);
         }
         else if (other.tag == "Car")
         {
-            _lives -= 1;
+            _gameManager.PlayCarSkid();
+            Damage();
             _ui.HealthCheck(_lives);
         }
         else if (other.tag == "Bone")
         {
+            _gameManager.BoneCollectedSound();
             _bonesCollected += 1;
             _ui.UpdateCollectedBones(_bonesCollected);
             Destroy(other.gameObject);
@@ -115,4 +147,5 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
 }
