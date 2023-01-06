@@ -15,6 +15,13 @@ public class PlayerInput : MonoBehaviour
     {
         _input = new PlayerInputAction();
         _input.Dog.Enable();
+
+        _input.Dog.QuitFullScreen.performed += QuitFullScreen_performed;
+    }
+
+    private void QuitFullScreen_performed(InputAction.CallbackContext obj)
+    {
+        Application.Quit();
     }
 
 

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private SpawnManager _spawnManager;
     [SerializeField]
-    private AudioSource _gameAudioSource, _BackgroundAudioSource;
+    private AudioSource _gameAudioSource;
     [SerializeField]
     private AudioClip _BoneCollectedAudio, _skidSound, _dogBark;
 
