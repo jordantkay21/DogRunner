@@ -36,6 +36,14 @@ public class PlayerInput : MonoBehaviour
     void SetDirection()
     {
         float direction = _input.Dog.Movement.ReadValue<float>();
+        if(direction > 0)
+        {
+            direction = 1;
+        }
+        else if (direction < 0)
+        {
+            direction = -1;
+        }
         _player.SetDirection(direction);
     }
 }
